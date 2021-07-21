@@ -19,6 +19,11 @@ yarn
 yarn start
 ```
 
+### Post a new fact
+
+```
+./post-fact.sh
+```
 ## References
 
 * [event-source](https://developer.mozilla.org/en-US/docs/Web/API/EventSource)

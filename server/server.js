@@ -47,6 +47,10 @@ function eventsHandler(request, response, next) {
 }
 
 app.get('/events', eventsHandler);
+app.get('/events/all', function (_req, res) {
+  res.json(facts)
+});
+
 function sendEventsToAll(newFact) {
   clients.forEach(client => client.response.write(`data: ${JSON.stringify(newFact)}\n\n`))
 }
