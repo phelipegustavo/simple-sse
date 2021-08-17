@@ -1,20 +1,31 @@
+import { createEntityAdapter } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { EventSourcePolyfill } from 'event-source-polyfill'
 
+const factsAdapter = createEntityAdapter()
 export const factsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5555/' }),
   endpoints: (build) => ({
     getFacts: build.query({
       query: () => '/events/all',
+      transformResponse(response) {
+        return factsAdapter.addMany(
+          factsAdapter.getInitialState(),
+          response
+        )
+      },
       onCacheEntryAdded: async (_arg, { updateCachedData, cacheDataLoaded, cacheEntryRemoved }) => {
         // create a event source when the cache subscription starts
-        const events = new EventSource('http://localhost:5555/events');
+        const events = new EventSourcePolyfill('http://localhost:5555/events');
         try {
           // wait for the initial query to resolve before proceeding
           await cacheDataLoaded
           events.onmessage = (event) => {
+            console.info('event', event)
             const parsedData = JSON.parse(event.data);
-    
-            updateCachedData((facts) => facts.concat(parsedData));
+            updateCachedData((facts) => (
+              factsAdapter.upsertOne(facts, parsedData)
+            ));
           };
         } catch {
           // no-op in case `cacheEntryRemoved` resolves before `cacheDataLoaded`,

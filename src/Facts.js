@@ -20,9 +20,9 @@ function Facts() {
       </thead>
       <tbody>
         {
-          facts.map((fact, i) =>
+          Object.values(facts.entities).map((fact, i) =>
             <tr key={i}>
-              <td>{i}</td>
+              <td>{fact.id}</td>
               <td>{fact.info}</td>
               <td>{fact.source}</td>
             </tr>

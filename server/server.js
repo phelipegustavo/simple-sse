@@ -57,6 +57,7 @@ function sendEventsToAll(newFact) {
 
 async function addFact(request, respsonse, next) {
   const newFact = request.body;
+  newFact.id = request.body.id || (new Date()).getTime()
   facts.push(newFact);
   respsonse.json(newFact)
   return sendEventsToAll(newFact);
