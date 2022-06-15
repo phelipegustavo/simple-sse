@@ -55,11 +55,11 @@ function sendEventsToAll(newFact) {
   clients.forEach(client => client.response.write(`data: ${JSON.stringify(newFact)}\n\n`))
 }
 
-async function addFact(request, respsonse, next) {
+async function addFact(request, response, next) {
   const newFact = request.body;
   newFact.id = request.body.id || (new Date()).getTime()
   facts.push(newFact);
-  respsonse.json(newFact)
+  response.json(newFact)
   return sendEventsToAll(newFact);
 }
 
