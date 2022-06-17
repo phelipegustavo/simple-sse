@@ -13,7 +13,7 @@ app.get('/status', (request, response) => response.json({clients: clients.length
 const PORT = 5555;
 
 let clients = [];
-let facts = [];
+const facts = [];
 
 app.listen(PORT, () => {
   console.log(`Facts Events service listening at http://localhost:${PORT}`)
@@ -52,12 +52,12 @@ app.get('/events/all', function (_req, res) {
 });
 
 function sendEventsToAll(newFact) {
-  clients.forEach(client => client.response.write(`data: ${JSON.stringify(newFact)}\n\n`))
+  clients.forEach(client => client.response.write(`data: ${JSON.stringify([newFact])}\n\n`))
 }
 
 async function addFact(request, response, next) {
   const newFact = request.body;
-  newFact.id = request.body.id || (new Date()).getTime()
+  newFact.id = String(request.body.id || (new Date()).getTime())
   facts.push(newFact);
   response.json(newFact)
   return sendEventsToAll(newFact);

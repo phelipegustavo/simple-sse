@@ -25,6 +25,7 @@
   },
   "scripts": {
     "start": "HTTPS=trueyar react-scripts start",
+    "server": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

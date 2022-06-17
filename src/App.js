@@ -9,10 +9,10 @@ import { store } from './store';
 function Hello() {
   return (
     <>
-      <h1>Hello!</h1> 
       <Link to="/facts">
         <button>Facts</button>
       </Link>
+      <h1>Hello!</h1> 
     </>
   )
 }
