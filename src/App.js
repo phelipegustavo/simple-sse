@@ -24,7 +24,6 @@ function App() {
       <thead>
         <tr>
           <th>Fact</th>
-          <th>Source</th>
         </tr>
       </thead>
       <tbody>
@@ -32,7 +31,6 @@ function App() {
           facts.map((fact, i) =>
             <tr key={i}>
               <td>{fact.info}</td>
-              <td>{fact.source}</td>
             </tr>
           )
         }
