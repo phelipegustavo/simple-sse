@@ -12,6 +12,7 @@
     "@types/node": "^17.0.44",
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
+    "concurrently": "^7.2.2",
     "event-source-polyfill": "^1.0.25",
     "ra-data-simple-rest": "^3.16.0",
     "react": "^17.0.2",
@@ -24,7 +25,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "HTTPS=trueyar react-scripts start",
+    "start": "concurrently \"node server/server.js\" \"react-scripts start\"",
     "server": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
